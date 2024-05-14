@@ -4,22 +4,26 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import com.davi.course.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_order_product")
+@Table(name = "tb_order_item")
 public class OrderItem implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();
 	private Integer quantity;
 	private Double price;
 	
+	public OrderItem() {
+		
+	}
 	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		
 		this.quantity = quantity;
@@ -28,6 +32,7 @@ public class OrderItem implements Serializable{
 		id.setProduct(product);
 	}
 	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
