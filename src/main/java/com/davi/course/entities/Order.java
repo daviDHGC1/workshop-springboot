@@ -107,6 +107,16 @@ public class Order implements Serializable {
 		this.items = items;
 	}
 	
+	public Double getTotal() {
+		Double total = 0.0;
+		
+		for(OrderItem list : items) {
+			total += list.getSubTotal();
+		}
+		
+		return total;
+	}
+	
 	
 
 }
